@@ -1,0 +1,97 @@
+import java.util.*;
+/**
+ *
+ * @author cyber
+ */
+public class Ques {
+
+    /**
+     * @param args the command line arguments
+     */
+    void check(int[] cx, int[] cy, int i, int j,int[][] list)
+    {
+        int m,k;
+        for( m=0;m<cy[0];m++)
+        for( k=0;k<cx[m];k++)
+        {
+            
+            if(list[m][k]==i)
+            {list[m][cx[m]] = j;
+            cx[m]++;
+            
+            return;}
+            else if(list[m][k]==j)
+            {list[m][cx[m++]] = i;
+            cx[m]++;
+            
+            return;}
+        }
+        list[cy[m]][0]=i;
+        list[cy[m]][1]=j;
+        cx[0]=2;
+        cy[0]++;
+        
+    }
+    
+    String search(int[][] list,int k,int l,int[] cx,int[] cy)
+    {
+        int f1=0;
+        int f2=0;
+        
+        for(int i=0;i<cy[0];i++)
+        {
+            for(int j=0;j<cx[i];j++)
+            {
+                if(list[i][j]==k)
+                    f1=1;
+                if(list[i][j]==l)
+                    f2=1;
+            }
+            if(f1==1 && f2==1)
+                return "YES";
+        }
+        return "NO";
+    }
+    
+    public static void main(String[] args) {
+        
+        Ques q = new Ques();
+        
+        int i,j,k,l;
+        int[][] list=new int[1000][1000];
+        char c;
+        long n;
+        int[] cy = new int[2];
+        int[] cx = new int[1000];
+        int a=0;
+        String[] str = new String[1000];
+        Scanner in = new Scanner(System.in);
+        
+        n = in.nextInt();
+        
+        while(true)
+        {
+            c = in.next().charAt(0);
+            if(c=='-')
+                break;
+            if(c == 'C' || c=='c')
+            {
+                i = in.nextInt();
+                j = in.nextInt();
+                q.check(cx,cy,i,j,list);
+            }
+            if(c=='Q' || c=='q')
+            {
+                k = in.nextInt();
+                l = in.nextInt();
+                str[a++] = q.search(list,k,l,cx,cy);
+                
+            }
+        }
+        
+        for(i=0;i<a;i++)
+            System.out.println(str[i]);
+        
+    }
+    
+}
