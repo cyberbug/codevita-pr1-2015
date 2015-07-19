@@ -1,0 +1,106 @@
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author cyber
+ */
+public class Ques3 {
+
+    /**
+     * @param args the command line arguments
+     */
+    
+    public static int x;
+    public static int y;
+    public static int row1 = 0;
+    public static int count = 0;
+    
+    public void check(int[][] link,int[][] list,int[] row,int n,int m,int k,int val){
+        
+        
+        if(count == m)
+            return;
+        int i,j=0,l=-1;
+        
+        for(i=0;i<row1;i++)
+        {
+            if(row[i]==k){
+                row[i]=-1;
+                l=i;
+                break;
+            
+            }}
+        if(l==-1)
+            return;
+       
+        for(j=0;j<n;j++)
+        {
+            if(link[k-1][j]==1)
+            {
+                link[k-1][j]=0;
+                if(val == 1)
+                {list[1][y]=j+1;
+                y++;
+                count++;}
+                else
+                {list[0][x]=j+1;
+                x++;
+                count++;}
+                
+                check(link,list,row,n,m,j+1,2-val-1);
+                }
+            }
+        }
+        
+    
+    public static void main(String[] args) {
+        // TODO code application logic here
+        int i,j;
+        int m,n,least =51;
+        int[][] list = new int[2][50];
+        int[][] link = new int[50][50];
+        int[] row = new int[50];
+        
+        Scanner in = new Scanner(System.in);
+        
+        Ques3 q = new Ques3();
+        
+        n = in.nextInt();
+        m = in.nextInt();
+        
+        for(x=0;x<m;x++)
+        {
+            i = in.nextInt();
+            if(i<least)
+                least = i;
+            j = in.nextInt();
+            if(j<least)
+                least = j;
+            link[i-1][j-1]=1;
+            link[j-1][i-1]=1;
+            row[row1]=i;
+            row1++;
+            row[row1]=j;
+            row1++;
+        }
+        
+        count=0;
+        x=1;
+        y=0;
+        list[0][0]=least;
+        
+        q.check(link,list,row,n,m,least,1);
+        
+        for(i=0;i<x;i++)
+            for(j=0;j<y;j++)
+                if(list[0][i]==list[1][j])
+                {
+                    System.out.print("NO");
+                    return;
+                }
+        System.out.print("YES");
+    }
+    
+            
+        }
